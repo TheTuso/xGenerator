@@ -1,0 +1,5 @@
+name: xGenerator
+version: '${project.version}'
+main: pl.tuso.xgenerator.XGenerator
+api-version: 1.17
+load: STARTUP
