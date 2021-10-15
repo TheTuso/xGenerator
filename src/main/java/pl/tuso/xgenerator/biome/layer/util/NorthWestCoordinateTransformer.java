@@ -1,11 +1,11 @@
 package pl.tuso.xgenerator.biome.layer.util;
 
 public interface NorthWestCoordinateTransformer extends CoordinateTransformer {
-    default int transdormX(int x) {
+    default int transformX(int x) {
         return x - 1;
     }
 
-    default int transdormZ(int y) {
+    default int transformZ(int y) {
         return y - 1;
     }
 }

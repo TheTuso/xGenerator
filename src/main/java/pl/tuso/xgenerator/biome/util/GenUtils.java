@@ -1,4 +1,4 @@
-package pl.tuso.xgenerator.biome.layer.util;
+package pl.tuso.xgenerator.biome.util;
 
 import org.bukkit.Material;
 

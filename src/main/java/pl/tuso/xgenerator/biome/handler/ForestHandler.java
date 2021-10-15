@@ -3,7 +3,6 @@ package pl.tuso.xgenerator.biome.handler;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.generator.WorldInfo;
-import pl.tuso.xgenerator.biome.layer.util.GenUtils;
 import pl.tuso.xgenerator.biome.math.FastNoiseLite;
 
 import java.util.Random;
