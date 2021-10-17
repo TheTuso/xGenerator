@@ -28,9 +28,9 @@ public class PlainsHandler implements BiomeHandler {
     public double getNoise(WorldInfo worldInfo, int x, int y, int z) {
         n.SetSeed((int) worldInfo.getSeed() * 4);
         n.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2S);
-        n.SetFractalOctaves(3);
-        n.SetFrequency(0.07f);
-        return n.GetNoise(x, y, z);
+        n.SetFractalOctaves(8);
+        n.SetFrequency(0.025f);
+        return n.GetNoise(x, z) * 0.25F;
     }
 
 }

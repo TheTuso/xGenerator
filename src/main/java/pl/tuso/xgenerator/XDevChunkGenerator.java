@@ -1,44 +1,32 @@
 package pl.tuso.xgenerator;
 
-import org.bukkit.*;
-import org.bukkit.generator.*;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.generator.BiomeProvider;
+import org.bukkit.generator.BlockPopulator;
+import org.bukkit.generator.ChunkGenerator;
+import org.bukkit.generator.WorldInfo;
 import pl.tuso.xgenerator.biome.Biomes;
-import pl.tuso.xgenerator.biome.source.LayeredBiomeSource;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class XChunkGenerator extends ChunkGenerator {
+public class XDevChunkGenerator extends ChunkGenerator {
 
     public static final Object LOCK = new Object();
 
-    private LayeredBiomeSource layeredBiomeSource;
-
     @Override
     public void generateNoise(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, ChunkGenerator.ChunkData chunkData) {
-        layeredBiomeSource = new LayeredBiomeSource(worldInfo.getSeed(), 4, 4);
-
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
                 int realX = chunkX * 16 + x;
                 int realZ = chunkZ * 16 + z;
 
-                double[] heights = new double[256];
-                double weights = 0;
-                for (int x1 = -3; x1 <= 3; x1++) {
-                    for (int z1 = -3; z1 <= 3; z1++) {
-                        Biomes biomes = Biomes.getBiomeById(layeredBiomeSource.getBiomeForNoiseGen(realX + x1, realZ + z1));
-                        for (int y = 0; y < 256; y++) {
-                            //heights[y] += biomes.getHandler().getNoise(worldInfo, realX, y, realZ);
-                            heights[y] += 0.6;//TODO make cache for noise!!!
-                        }
-                        weights += 1;
-                    }
-                }
+                Biomes biomes = Biomes.FOREST;
 
                 for (int y = 0; y < 256; y++) {
-                    double finalHeight = heights[y] / weights;
+                    double finalHeight = biomes.getHandler().getNoise(worldInfo, realX, y, realZ);
                     finalHeight -= ((y / 14.5) - 4.5);
                     if (finalHeight > 0) {
                         setBlockSync(chunkData, x, y, z, Material.STONE);
@@ -55,7 +43,7 @@ public class XChunkGenerator extends ChunkGenerator {
                 int realX = chunkX * 16 + x;
                 int realZ = chunkZ * 16 + z;
 
-                Biomes biomes = Biomes.getBiomeById(layeredBiomeSource.getBiomeForNoiseGen(realX, realZ));
+                Biomes biomes = Biomes.FOREST;
 
                 Material[] materials = biomes.getHandler().getSurfaceCrust(random);
 
@@ -68,6 +56,12 @@ public class XChunkGenerator extends ChunkGenerator {
                         }
                     } else {
                         index = 0;
+                    }
+                }
+
+                for (int y = 62; y > 16; y--) {
+                    if (chunkData.getBlockData(x, y, z).equals(Material.AIR.createBlockData())) {
+                        setBlockSync(chunkData, x, y, z, Material.WATER);
                     }
                 }
             }
@@ -84,7 +78,6 @@ public class XChunkGenerator extends ChunkGenerator {
 
     @Override
     public BiomeProvider getDefaultBiomeProvider(WorldInfo worldInfo) {
-        //return new XBiomeProvider();
         return null;
     }
 

@@ -1,4 +1,4 @@
-package pl.tuso.xgenerator.biome;
+package pl.tuso.xgenerator.biome.source;
 
 import pl.tuso.xgenerator.biome.layer.util.CachingLayerSampler;
 import pl.tuso.xgenerator.biome.layer.util.LayerFactory;

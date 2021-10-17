@@ -3,6 +3,7 @@ package pl.tuso.xgenerator.biome;
 import pl.tuso.xgenerator.biome.layer.*;
 import pl.tuso.xgenerator.biome.layer.type.ParentedLayer;
 import pl.tuso.xgenerator.biome.layer.util.*;
+import pl.tuso.xgenerator.biome.source.BiomeLayerSampler;
 
 import java.util.function.LongFunction;
 
@@ -57,7 +58,7 @@ public class BiomeLayers {
     }
 
     public static BiomeLayerSampler build(long seed, int biomeSize, int riverSize) {
-        LayerFactory<CachingLayerSampler> layerFactory = build(biomeSize, riverSize, (salt) -> new CachingLayerContext(25, seed, salt));
+        LayerFactory<CachingLayerSampler> layerFactory = build(biomeSize, riverSize, (salt) -> new CachingLayerContext(784, seed, salt));
         return new BiomeLayerSampler(layerFactory);
     }
 

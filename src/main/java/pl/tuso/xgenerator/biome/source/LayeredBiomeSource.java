@@ -1,4 +1,6 @@
-package pl.tuso.xgenerator.biome;
+package pl.tuso.xgenerator.biome.source;
+
+import pl.tuso.xgenerator.biome.BiomeLayers;
 
 public class LayeredBiomeSource {
     private final BiomeLayerSampler biomeSampler;
