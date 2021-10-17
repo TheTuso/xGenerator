@@ -3,7 +3,9 @@ package pl.tuso.xgenerator;
 import org.bukkit.*;
 import org.bukkit.generator.*;
 import pl.tuso.xgenerator.biome.Biomes;
+import pl.tuso.xgenerator.biome.populator.TestPopulator;
 import pl.tuso.xgenerator.biome.source.LayeredBiomeSource;
+import pl.tuso.xgenerator.biome.util.NoiseCache;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +19,8 @@ public class XChunkGenerator extends ChunkGenerator {
 
     @Override
     public void generateNoise(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, ChunkGenerator.ChunkData chunkData) {
-        layeredBiomeSource = new LayeredBiomeSource(worldInfo.getSeed(), 4, 4);
-
+        layeredBiomeSource = new LayeredBiomeSource(worldInfo.getSeed(), 4, 3);
+        NoiseCache noiseCache = new NoiseCache(512);
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
                 int realX = chunkX * 16 + x;
@@ -30,8 +32,8 @@ public class XChunkGenerator extends ChunkGenerator {
                     for (int z1 = -3; z1 <= 3; z1++) {
                         Biomes biomes = Biomes.getBiomeById(layeredBiomeSource.getBiomeForNoiseGen(realX + x1, realZ + z1));
                         for (int y = 0; y < 256; y++) {
-                            //heights[y] += biomes.getHandler().getNoise(worldInfo, realX, y, realZ);
-                            heights[y] += 0.6;//TODO make cache for noise!!!
+                            heights[y] += biomes.getHandler().getNoise(worldInfo, realX, y, realZ);
+                            //heights[y] += noiseCache.get(biomes, worldInfo, realX, y, realZ);//TODO fix
                         }
                         weights += 1;
                     }
@@ -70,6 +72,21 @@ public class XChunkGenerator extends ChunkGenerator {
                         index = 0;
                     }
                 }
+
+                for (int y = 62; y > 16; y--) {
+                    if (chunkData.getBlockData(x, y, z).equals(Material.AIR.createBlockData())) {
+                        setBlockSync(chunkData, x, y, z, Material.WATER);
+                    }
+                }
+
+                for (int y = 62; y > 16; y--) {
+                    if (chunkData.getBlockData(x, y, z).equals(Material.WATER.createBlockData()) &&
+                            !chunkData.getBlockData(x, y-1, z).equals(Material.WATER.createBlockData())) {
+                        setBlockSync(chunkData, x, y - 1, z, Material.DIRT);
+                        setBlockSync(chunkData, x, y - 2, z, Material.DIRT);
+                        setBlockSync(chunkData, x, y - 3, z, Material.DIRT);
+                    }
+                }
             }
         }
     }
@@ -90,7 +107,9 @@ public class XChunkGenerator extends ChunkGenerator {
 
     @Override
     public List<BlockPopulator> getDefaultPopulators(World world) {
-        return new ArrayList<BlockPopulator>();
+        List<BlockPopulator> populators = new ArrayList<>();
+        populators.add(new TestPopulator(world));
+        return populators;
     }
 
     @Override

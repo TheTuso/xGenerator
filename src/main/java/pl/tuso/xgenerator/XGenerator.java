@@ -19,6 +19,6 @@ public final class XGenerator extends JavaPlugin {
 
     @Override
     public @Nullable ChunkGenerator getDefaultWorldGenerator(@NotNull String worldName, @Nullable String id) {
-        return new XChunkGenerator();
+        return new XDevChunkGenerator();
     }
 }

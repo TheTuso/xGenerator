@@ -7,6 +7,8 @@ import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.generator.WorldInfo;
 import pl.tuso.xgenerator.biome.Biomes;
+import pl.tuso.xgenerator.biome.populator.DevPopulator;
+import pl.tuso.xgenerator.biome.populator.TestPopulator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +85,9 @@ public class XDevChunkGenerator extends ChunkGenerator {
 
     @Override
     public List<BlockPopulator> getDefaultPopulators(World world) {
-        return new ArrayList<BlockPopulator>();
+        List<BlockPopulator> populators = new ArrayList<>();
+        populators.add(new DevPopulator(world));
+        return populators;
     }
 
     @Override

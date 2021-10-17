@@ -43,6 +43,7 @@ public class BiomeLayers {
         layerFactory2 = stack(1000, ScaleLayer.NORMAL, layerFactory2, 2, contextProvider);
         layerFactory2 = stack(1000, ScaleLayer.NORMAL, layerFactory2, riverSize, contextProvider);
         layerFactory2 = NoiseToRiverLayer.INSTANCE.create(contextProvider.apply(1), layerFactory2);
+        layerFactory2 = ScaleLayer.NORMAL.create(contextProvider.apply(2004), layerFactory2);//
         layerFactory2 = SmoothLayer.INSTANCE.create(contextProvider.apply(1000), layerFactory2);
 
         for (int i = 0; i < biomeSize; ++i) {
@@ -58,7 +59,7 @@ public class BiomeLayers {
     }
 
     public static BiomeLayerSampler build(long seed, int biomeSize, int riverSize) {
-        LayerFactory<CachingLayerSampler> layerFactory = build(biomeSize, riverSize, (salt) -> new CachingLayerContext(784, seed, salt));
+        LayerFactory<CachingLayerSampler> layerFactory = build(biomeSize, riverSize, (salt) -> new CachingLayerContext(32, seed, salt));
         return new BiomeLayerSampler(layerFactory);
     }
 
