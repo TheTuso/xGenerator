@@ -13,11 +13,11 @@ import pl.tuso.xgenerator.biome.source.LayeredBiomeSource;
 
 import java.util.Random;
 
-public class DevPopulator extends BlockPopulator {
+public class DevSmallPopulator extends BlockPopulator {
 
     private final World world;
 
-    public DevPopulator(World world) {
+    public DevSmallPopulator(World world) {
         this.world = world;
     }
 
@@ -26,6 +26,10 @@ public class DevPopulator extends BlockPopulator {
         Biomes biomes = Biomes.FOREST;
         for (SmallItem item : biomes.getHandler().smallIteams()) {
             item.build(chunkX, chunkZ, random, limitedRegion);
+        }
+
+        for (TreePopulator tree : biomes.getHandler().trees()) {
+            tree.build(chunkX, chunkZ, random, limitedRegion);
         }
     }
 }

@@ -7,14 +7,15 @@ import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.generator.WorldInfo;
 import pl.tuso.xgenerator.biome.Biomes;
-import pl.tuso.xgenerator.biome.populator.DevPopulator;
-import pl.tuso.xgenerator.biome.populator.TestPopulator;
+import pl.tuso.xgenerator.biome.populator.DevSmallPopulator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class XDevChunkGenerator extends ChunkGenerator {
+
+    World world;
 
     public static final Object LOCK = new Object();
 
@@ -25,7 +26,9 @@ public class XDevChunkGenerator extends ChunkGenerator {
                 int realX = chunkX * 16 + x;
                 int realZ = chunkZ * 16 + z;
 
-                Biomes biomes = Biomes.FOREST;
+                this.world = (World) worldInfo;
+
+                Biomes biomes = Biomes.AUTUMN_FOREST;
 
                 for (int y = 0; y < 256; y++) {
                     double finalHeight = biomes.getHandler().getNoise(worldInfo, realX, y, realZ);
@@ -45,7 +48,7 @@ public class XDevChunkGenerator extends ChunkGenerator {
                 int realX = chunkX * 16 + x;
                 int realZ = chunkZ * 16 + z;
 
-                Biomes biomes = Biomes.FOREST;
+                Biomes biomes = Biomes.AUTUMN_FOREST;
 
                 Material[] materials = biomes.getHandler().getSurfaceCrust(random);
 
@@ -66,6 +69,15 @@ public class XDevChunkGenerator extends ChunkGenerator {
                         setBlockSync(chunkData, x, y, z, Material.WATER);
                     }
                 }
+
+                for (int y = 62; y > 16; y--) {
+                    if (chunkData.getBlockData(x, y, z).equals(Material.WATER.createBlockData()) &&
+                            !chunkData.getBlockData(x, y-1, z).equals(Material.WATER.createBlockData())) {
+                        setBlockSync(chunkData, x, y - 1, z, Material.DIRT);
+                        setBlockSync(chunkData, x, y - 2, z, Material.DIRT);
+                        setBlockSync(chunkData, x, y - 3, z, Material.DIRT);
+                    }
+                }
             }
         }
     }
@@ -80,13 +92,13 @@ public class XDevChunkGenerator extends ChunkGenerator {
 
     @Override
     public BiomeProvider getDefaultBiomeProvider(WorldInfo worldInfo) {
-        return null;
+        return new XDevBiomeProvider();
     }
 
     @Override
     public List<BlockPopulator> getDefaultPopulators(World world) {
         List<BlockPopulator> populators = new ArrayList<>();
-        populators.add(new DevPopulator(world));
+        populators.add(new DevSmallPopulator(world));
         return populators;
     }
 
