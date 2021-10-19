@@ -13,10 +13,7 @@ public enum Biomes {
     JUNGLE(new JungleHandler(), 7),
     SAVANNA(new SavannaHandler(), 8),
     MESSA(new MessaHandler(), 9),
-    SNOWY_TAIGA(new SnowyTaigaHandler(), 10),
-    SNOWY_TUNDRA(new SnowyTundraHandler(), 11),
-    AUTUMN_FOREST(new AutumnForestHandler(), 12),
-    REDWOOD_FOREST(new RedwoodForestHandler(), 13);
+    AUTUMN_FOREST(new AutumnForestHandler(), 10);
 
     private final BiomeHandler handler;
     private final int id;

@@ -1,6 +1,7 @@
 package pl.tuso.xgenerator;
 
 import com.google.common.collect.Lists;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.generator.BiomeProvider;
@@ -14,7 +15,8 @@ public class XDevBiomeProvider extends BiomeProvider {
 
     @Override
     public @NotNull Biome getBiome(@NotNull WorldInfo worldInfo, int x, int y, int z) {
-        Biomes biomes = Biomes.AUTUMN_FOREST;
+        Biomes biomes = Biomes.JUNGLE;
+
         return biomes.getHandler().getVanillaBiome();
     }
 

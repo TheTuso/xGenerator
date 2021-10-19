@@ -1,6 +1,7 @@
 package pl.tuso.xgenerator.biome.handler;
 
 import org.bukkit.Material;
+import org.bukkit.TreeType;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.generator.WorldInfo;
@@ -14,27 +15,22 @@ public class TaigaHandler implements BiomeHandler {
 
     @Override
     public Material[] getSurfaceCrust(Random random) {
-        return new Material[] {Material.GREEN_CONCRETE};
+        return new Material[] {Material.GRASS_BLOCK, Material.GRASS_BLOCK, Material.ROOTED_DIRT, Material.COARSE_DIRT, Material.GRASS_BLOCK, Material.PODZOL};
     }
 
     @Override
     public SmallItem[] smallIteams() {
-        return new SmallItem[0];
+        return new SmallItem[] {new SmallItem(Material.GRASS, 64), new SmallItem(Material.FERN, 16), new SmallItem(Material.DEAD_BUSH, 16), new SmallItem(Material.PUMPKIN, 3)};
     }
 
     @Override
     public TreePopulator[] trees() {
-        return new TreePopulator[0];
+        return new TreePopulator[] {new TreePopulator(TreeType.REDWOOD, 16), new TreePopulator(TreeType.TALL_REDWOOD, 8), new TreePopulator(TreeType.MEGA_REDWOOD, 2)};
     }
 
     @Override
     public Biome getVanillaBiome() {
         return Biome.TAIGA;
-    }
-
-    @Override
-    public void setCustomBiome(World world, int x, int z) {
-
     }
 
     @Override

@@ -1,9 +1,5 @@
 package pl.tuso.xgenerator.biome.populator;
 
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.TreeType;
-import org.bukkit.World;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.LimitedRegion;
 import org.bukkit.generator.WorldInfo;
@@ -13,21 +9,17 @@ import pl.tuso.xgenerator.biome.source.LayeredBiomeSource;
 
 import java.util.Random;
 
-public class DevSmallPopulator extends BlockPopulator {
+public class ItemPopulator extends BlockPopulator {
 
-    private final World world;
-
-    public DevSmallPopulator(World world) {
-        this.world = world;
-    }
 
     @Override
     public void populate(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull LimitedRegion limitedRegion) {
-        Biomes biomes = Biomes.FOREST;
+        LayeredBiomeSource layeredBiomeSource = new LayeredBiomeSource(worldInfo.getSeed(), 5, 3);
+
+        Biomes biomes = Biomes.getBiomeById(layeredBiomeSource.getBiomeForNoiseGen(chunkX * 16, chunkZ * 16));
         for (SmallItem item : biomes.getHandler().smallIteams()) {
             item.build(chunkX, chunkZ, random, limitedRegion);
         }
-
         for (TreePopulator tree : biomes.getHandler().trees()) {
             tree.build(chunkX, chunkZ, random, limitedRegion);
         }

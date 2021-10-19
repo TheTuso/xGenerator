@@ -14,7 +14,7 @@ public class RiverHandler implements BiomeHandler {
 
     @Override
     public Material[] getSurfaceCrust(Random random) {
-        return new Material[] {Material.LAPIS_BLOCK};
+        return new Material[] {Material.GRASS_BLOCK, Material.DIRT, Material.DIRT};
     }
 
     @Override
@@ -33,17 +33,12 @@ public class RiverHandler implements BiomeHandler {
     }
 
     @Override
-    public void setCustomBiome(World world, int x, int z) {
-
-    }
-
-    @Override
     public double getNoise(WorldInfo worldInfo, int x, int y, int z) {
         n.SetSeed((int) worldInfo.getSeed() * 4);
         n.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2S);
         n.SetFractalOctaves(3);
         n.SetFrequency(0.015f);
-        return n.GetNoise(x, z) * 0.25 - 0.7;
+        return n.GetNoise(x, z) * 0.15 - 0.5;
     }
 
 }

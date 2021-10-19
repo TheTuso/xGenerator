@@ -44,6 +44,7 @@ public class BiomeLayers {
         layerFactory2 = stack(1000, ScaleLayer.NORMAL, layerFactory2, riverSize, contextProvider);
         layerFactory2 = NoiseToRiverLayer.INSTANCE.create(contextProvider.apply(1), layerFactory2);
         layerFactory2 = ScaleLayer.NORMAL.create(contextProvider.apply(2004), layerFactory2);//
+        layerFactory2 = ScaleLayer.NORMAL.create(contextProvider.apply(2005), layerFactory2);//
         layerFactory2 = SmoothLayer.INSTANCE.create(contextProvider.apply(1000), layerFactory2);
 
         for (int i = 0; i < biomeSize; ++i) {

@@ -7,8 +7,8 @@ import pl.tuso.xgenerator.biome.layer.util.LayerRandomnessSource;
 
 public class AddBaseBiomesLayer implements IdentitySamplingLayer {
     private static final int[] DRY_BIOMES = new int[]{Biomes.DESERT.getId(), Biomes.DESERT.getId(), Biomes.SAVANNA.getId(), Biomes.SAVANNA.getId(), Biomes.MESSA.getId(), Biomes.PLAINS.getId()};
-    private static final int[] TEMPERATE_BIOMES = new int[]{Biomes.FOREST.getId(), Biomes.AUTUMN_FOREST.getId(), Biomes.REDWOOD_FOREST.getId(), Biomes.PLAINS.getId(), Biomes.SWAMP.getId()};
-    private static final int[] COOL_BIOMES = new int[]{Biomes.FOREST.getId(), Biomes.SNOWY_TUNDRA.getId(), Biomes.SNOWY_TAIGA.getId(), Biomes.TAIGA.getId(), Biomes.PLAINS.getId()};
+    private static final int[] TEMPERATE_BIOMES = new int[]{Biomes.FOREST.getId(), Biomes.AUTUMN_FOREST.getId(), Biomes.PLAINS.getId(), Biomes.SWAMP.getId()};
+    private static final int[] COOL_BIOMES = new int[]{Biomes.FOREST.getId(), Biomes.TAIGA.getId(), Biomes.PLAINS.getId(), Biomes.TAIGA.getId()};
 
     @Override
     public int sample(LayerRandomnessSource context, int value) {

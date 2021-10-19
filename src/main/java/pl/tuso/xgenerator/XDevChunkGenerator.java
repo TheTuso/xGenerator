@@ -7,15 +7,14 @@ import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.generator.WorldInfo;
 import pl.tuso.xgenerator.biome.Biomes;
-import pl.tuso.xgenerator.biome.populator.DevSmallPopulator;
+import pl.tuso.xgenerator.biome.populator.DevItemPopulator;
+import pl.tuso.xgenerator.biome.populator.ItemPopulator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class XDevChunkGenerator extends ChunkGenerator {
-
-    World world;
 
     public static final Object LOCK = new Object();
 
@@ -26,9 +25,7 @@ public class XDevChunkGenerator extends ChunkGenerator {
                 int realX = chunkX * 16 + x;
                 int realZ = chunkZ * 16 + z;
 
-                this.world = (World) worldInfo;
-
-                Biomes biomes = Biomes.AUTUMN_FOREST;
+                Biomes biomes = Biomes.JUNGLE;
 
                 for (int y = 0; y < 256; y++) {
                     double finalHeight = biomes.getHandler().getNoise(worldInfo, realX, y, realZ);
@@ -48,19 +45,27 @@ public class XDevChunkGenerator extends ChunkGenerator {
                 int realX = chunkX * 16 + x;
                 int realZ = chunkZ * 16 + z;
 
-                Biomes biomes = Biomes.AUTUMN_FOREST;
+                Biomes biomes = Biomes.JUNGLE;
 
                 Material[] materials = biomes.getHandler().getSurfaceCrust(random);
 
                 int index = 0;
                 for (int y = 256; y >= 0; y--) {
-                    if (!chunkData.getBlockData(x, y, z).equals(Material.AIR.createBlockData())) {
-                        if (index < materials.length) {
-                            setBlockSync(chunkData, x, y, z, materials[index]);
-                            index++;
+                    if (biomes == Biomes.DESERT || biomes == Biomes.MESSA || biomes == Biomes.SAVANNA || biomes == Biomes.TAIGA) {
+                        if (!chunkData.getBlockData(x, y, z).equals(Material.AIR.createBlockData())) {
+                            if (y > 48) {
+                                setBlockSync(chunkData, x, y, z, materials[y % materials.length]);
+                            }
                         }
                     } else {
-                        index = 0;
+                        if (!chunkData.getBlockData(x, y, z).equals(Material.AIR.createBlockData())) {
+                            if (index < materials.length) {
+                                setBlockSync(chunkData, x, y, z, materials[index]);
+                                index++;
+                            }
+                        } else {
+                            index = 0;
+                        }
                     }
                 }
 
@@ -98,7 +103,7 @@ public class XDevChunkGenerator extends ChunkGenerator {
     @Override
     public List<BlockPopulator> getDefaultPopulators(World world) {
         List<BlockPopulator> populators = new ArrayList<>();
-        populators.add(new DevSmallPopulator(world));
+        populators.add(new DevItemPopulator());
         return populators;
     }
 

@@ -14,12 +14,14 @@ public class MessaHandler implements BiomeHandler {
 
     @Override
     public Material[] getSurfaceCrust(Random random) {
-        return new Material[] {Material.TERRACOTTA};
+        return new Material[] {Material.ROOTED_DIRT, Material.COARSE_DIRT, Material.SMOOTH_RED_SANDSTONE, Material.RED_SANDSTONE,
+                            Material.ORANGE_TERRACOTTA, Material.TERRACOTTA, Material.ROOTED_DIRT, Material.DIRT, Material.COARSE_DIRT,
+                            Material.GRASS_BLOCK, Material.BROWN_TERRACOTTA, Material.GRAY_TERRACOTTA};
     }
 
     @Override
     public SmallItem[] smallIteams() {
-        return new SmallItem[0];
+        return new SmallItem[] {new SmallItem(Material.GRASS, 32), new SmallItem(Material.FERN, 16), new SmallItem(Material.DEAD_BUSH, 8)};
     }
 
     @Override
@@ -30,11 +32,6 @@ public class MessaHandler implements BiomeHandler {
     @Override
     public Biome getVanillaBiome() {
         return Biome.BADLANDS;
-    }
-
-    @Override
-    public void setCustomBiome(World world, int x, int z) {
-
     }
 
     @Override

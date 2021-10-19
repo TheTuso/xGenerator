@@ -1,6 +1,7 @@
 package pl.tuso.xgenerator.biome.handler;
 
 import org.bukkit.Material;
+import org.bukkit.TreeType;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.generator.WorldInfo;
@@ -14,17 +15,20 @@ public class SavannaHandler implements BiomeHandler {
 
     @Override
     public Material[] getSurfaceCrust(Random random) {
-        return new Material[] {Material.OAK_PLANKS};
+        return new Material[] {Material.GRASS_BLOCK, Material.GRASS_BLOCK, Material.ROOTED_DIRT,
+                Material.GRASS_BLOCK, Material.ROOTED_DIRT, Material.COARSE_DIRT, Material.GRASS_BLOCK
+                , Material.COARSE_DIRT, Material.COARSE_DIRT, Material.GRASS_BLOCK, Material.GRASS_BLOCK,
+                Material.ROOTED_DIRT, Material.ROOTED_DIRT};
     }
 
     @Override
     public SmallItem[] smallIteams() {
-        return new SmallItem[0];
+        return new SmallItem[] {new SmallItem(Material.GRASS, 64), new SmallItem(Material.FERN, 16), new SmallItem(Material.DEAD_BUSH, 8)};
     }
 
     @Override
     public TreePopulator[] trees() {
-        return new TreePopulator[0];
+        return new TreePopulator[] {new TreePopulator(TreeType.ACACIA, 8)};
     }
 
     @Override
@@ -33,17 +37,12 @@ public class SavannaHandler implements BiomeHandler {
     }
 
     @Override
-    public void setCustomBiome(World world, int x, int z) {
-
-    }
-
-    @Override
     public double getNoise(WorldInfo worldInfo, int x, int y, int z) {
         n.SetSeed((int) worldInfo.getSeed() * 4);
         n.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2S);
         n.SetFractalOctaves(8);
         n.SetFrequency(0.025f);
-        return n.GetNoise(x, y, z) * 0.9f + 1.3;
+        return n.GetNoise(x, y, z) * 0.9f + 0.9;
     }
 
 }

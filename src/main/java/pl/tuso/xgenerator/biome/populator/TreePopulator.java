@@ -17,11 +17,11 @@ public class TreePopulator {
         this.chance = chance;
     }
 
-    public void build(int chunkX, int chunkZ, Random random, LimitedRegion limitedRegion) {
+    public void build(int realX, int realZ, Random random, LimitedRegion limitedRegion) {
         int amount = random.nextInt(chance) + 1;
         for (int i = 1; i < amount; i++) {
-            int x = chunkX * 16 + random.nextInt(16);
-            int z = chunkZ * 16 + random.nextInt(16);
+            int x = realX * 16 + random.nextInt(16);
+            int z = realZ * 16 + random.nextInt(16);
             for (int y = 255; y > 0; y--) {
                 if (limitedRegion.getType(x, y, z).equals(Material.AIR) && canBePlacedOn(limitedRegion.getType(x, y - 1, z))) {
                     limitedRegion.generateTree(new Location(null, x, y, z), random, tree);

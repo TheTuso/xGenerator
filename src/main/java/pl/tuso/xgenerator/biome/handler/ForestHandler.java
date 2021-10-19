@@ -26,17 +26,12 @@ public class ForestHandler implements BiomeHandler {
 
     @Override
     public TreePopulator[] trees() {
-        return new TreePopulator[] {new TreePopulator(TreeType.TREE, 16), new TreePopulator(TreeType.BIG_TREE, 2)};
+        return new TreePopulator[] {new TreePopulator(TreeType.TREE, 16), new TreePopulator(TreeType.BIG_TREE, 2), new TreePopulator(TreeType.BIRCH, 2)};
     }
 
     @Override
     public Biome getVanillaBiome() {
         return Biome.FOREST;
-    }
-
-    @Override
-    public void setCustomBiome(World world, int x, int z) {
-
     }
 
     @Override

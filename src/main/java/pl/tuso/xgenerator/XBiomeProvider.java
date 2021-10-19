@@ -14,7 +14,7 @@ public class XBiomeProvider extends BiomeProvider {
 
     @Override
     public @NotNull Biome getBiome(@NotNull WorldInfo worldInfo, int x, int y, int z) {
-        LayeredBiomeSource layeredBiomeSource = new LayeredBiomeSource(worldInfo.getSeed(), 4, 4);
+        LayeredBiomeSource layeredBiomeSource = new LayeredBiomeSource(worldInfo.getSeed(), 5, 3);
         Biomes biomes = Biomes.getBiomeById(layeredBiomeSource.getBiomeForNoiseGen(x, z));
         return biomes.getHandler().getVanillaBiome();
     }
