@@ -3,6 +3,7 @@ package pl.tuso.xgenerator;
 import org.bukkit.*;
 import org.bukkit.generator.*;
 import pl.tuso.xgenerator.biome.Biomes;
+import pl.tuso.xgenerator.biome.layer.util.Seed;
 import pl.tuso.xgenerator.biome.populator.ItemPopulator;
 import pl.tuso.xgenerator.biome.populator.WaterIteamsPopulator;
 import pl.tuso.xgenerator.biome.source.LayeredBiomeSource;
@@ -15,11 +16,10 @@ public class XChunkGenerator extends ChunkGenerator {
 
     public static final Object LOCK = new Object();
 
-    private LayeredBiomeSource layeredBiomeSource;
+    LayeredBiomeSource layeredBiomeSource = Seed.getLayeredBiomeSource();
 
     @Override
     public void generateNoise(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, ChunkGenerator.ChunkData chunkData) {
-        layeredBiomeSource = new LayeredBiomeSource(worldInfo.getSeed(), 5, 3);
         //NoiseCache noiseCache = new NoiseCache(512);
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
@@ -28,8 +28,8 @@ public class XChunkGenerator extends ChunkGenerator {
 
                 double[] heights = new double[256];
                 double weights = 0;
-                for (int x1 = -2; x1 <= 2; x1++) {
-                    for (int z1 = -2; z1 <= 2; z1++) {
+                for (int x1 = -3; x1 <= 3; x1++) {
+                    for (int z1 = -3; z1 <= 3; z1++) {
                         Biomes biomes = Biomes.getBiomeById(layeredBiomeSource.getBiomeForNoiseGen(realX + x1, realZ + z1));
                         for (int y = 0; y < 256; y++) {
                             heights[y] += biomes.getHandler().getNoise(worldInfo, realX, y, realZ);

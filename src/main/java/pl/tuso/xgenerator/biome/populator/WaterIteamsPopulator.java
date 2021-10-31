@@ -16,7 +16,7 @@ public class WaterIteamsPopulator extends BlockPopulator {
 
     @Override
     public void populate(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull LimitedRegion limitedRegion) {
-        int amount = random.nextInt(64) + 1;
+        int amount = random.nextInt(64) + 64;
         for (int i = 1; i < amount; i++) {
             int realX = chunkX * 16 + random.nextInt(16);
             int realZ = chunkZ * 16 + random.nextInt(16);

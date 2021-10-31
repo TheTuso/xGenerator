@@ -6,15 +6,17 @@ import org.bukkit.generator.BiomeProvider;
 import org.bukkit.generator.WorldInfo;
 import org.jetbrains.annotations.NotNull;
 import pl.tuso.xgenerator.biome.Biomes;
+import pl.tuso.xgenerator.biome.layer.util.Seed;
 import pl.tuso.xgenerator.biome.source.LayeredBiomeSource;
 
 import java.util.List;
 
 public class XBiomeProvider extends BiomeProvider {
 
+    LayeredBiomeSource layeredBiomeSource = Seed.getLayeredBiomeSource();
+
     @Override
     public @NotNull Biome getBiome(@NotNull WorldInfo worldInfo, int x, int y, int z) {
-        LayeredBiomeSource layeredBiomeSource = new LayeredBiomeSource(worldInfo.getSeed(), 5, 3);
         Biomes biomes = Biomes.getBiomeById(layeredBiomeSource.getBiomeForNoiseGen(x, z));
         return biomes.getHandler().getVanillaBiome();
     }
